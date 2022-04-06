@@ -20,26 +20,18 @@ for tw in range(len(tweets)):
     name = tweets[tw]["name"]
     topic.append(name)
 # print(topic)
-volume_topic_dict = {"Topic": topic, "Volume": volume}
-# print(volume_topic_dict)
-volume_topic_df = pd.DataFrame(volume_topic_dict)
+
+volume_topic_df = pd.DataFrame({"Topic": topic, "Volume": volume})
 # print(volume_topic_df)
 
-##### PART ONE #####
 sorted_df = volume_topic_df.sort_values("Volume", ascending=False)
-# print(sorted_df)
-top10 = sorted_df[:10]
-# print(top10)
-df = pd.DataFrame(top10, columns=["Topic", "Volume"])
-# print(df)
 
-df.plot.bar(x="Topic", y="Volume", legend=False)
-plt.gcf().tight_layout()
+##### PART ONE #####
+sorted_df[:10].plot.bar(x="Topic", y="Volume", legend=False)
 plt.show()
 
 ##### PART TWO #####
-greater_20000 = sorted_df[sorted_df["Volume"] > 20000]
-cloud_df = pd.DataFrame(greater_20000, columns=["Topic", "Volume"])
+cloud_df = sorted_df[sorted_df["Volume"] > 20000]
 # print(cloud_df.shape)
 
 text = " ".join(review for review in cloud_df["Topic"].astype(str))
